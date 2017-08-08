@@ -1,0 +1,28 @@
+{
+    "name": "fonolo/sdk",
+    "type": "library",
+    "description": "A PHP wrapper for the Fonolo Call-Back API",
+    "keywords": ["fonolo","call-back", "api"],
+    "homepage": "https://fonolo.com",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/fonolo/fonolo-php/issues",
+        "source": "https://github.com/fonolo/fonolo-php"
+    },
+    "authors": [
+        {
+            "name": "Mike Pultz",
+            "email": "mike@fonolo.com",
+            "homepage": "http://mikepultz.com/",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fonolo\\": "Fonolo/"
+        }
+    }
+}
