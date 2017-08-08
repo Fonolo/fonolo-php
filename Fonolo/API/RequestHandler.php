@@ -85,10 +85,6 @@ trait RequestHandler
             curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($c, CURLOPT_USERPWD, $this->m_client->account_sid() . ':' . $this->m_client->api_token());
 
-            // TODO: remove these
-            curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
-            //curl_setopt($c, CURLOPT_VERBOSE, true);
-
             //
             // add additional custom CURL opts
             //
