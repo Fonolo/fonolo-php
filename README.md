@@ -72,4 +72,4 @@ Full API documentation is available from the [Fonolo developer site.][fonolo dev
 ### v1.0.0
 * Initial release.
 
-[fonolo dev site]:  https://fonolo.com/docs/api/
+[fonolo dev site]:  https://fonolo.com/help/api/
