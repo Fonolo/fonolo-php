@@ -23,7 +23,7 @@ class Client
     //
     // PHP SDK version
     //
-    const VERSION = '1.0.0';
+    const VERSION = '1.0.1';
 
     //
     // the API key
@@ -154,6 +154,18 @@ class Client
     }
 
     //
+    // return the realtime or scheduled call-backs view
+    //
+    private function get_realtime()
+    {
+        return new API\Realtime($this);
+    }
+    private function get_scheduled()
+    {
+        return new API\Scheduled($this);
+    }
+
+    //
     // return call-back profile details
     //
     private function get_profile(array $_args = null)
@@ -171,5 +183,13 @@ class Client
     private function get_callback(array $_args = null)
     {
         return new API\CallBack($this, $_args);
+    }
+
+    //
+    // list of time zones
+    //
+    private function get_timezones()
+    {
+        return new API\Timezones($this);
     }
 }
