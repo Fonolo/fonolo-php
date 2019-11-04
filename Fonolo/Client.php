@@ -23,7 +23,7 @@ class Client
     //
     // PHP SDK version
     //
-    const VERSION = '1.0.1';
+    const VERSION = '1.0.2';
 
     //
     // the API key
@@ -35,6 +35,11 @@ class Client
     // the request URL
     //
     private $m_url = 'https://api.fonolo.com/3.0/';
+
+    //
+    // if we should verify SSL when we make requests
+    //
+    private $m_verify_ssl = true;
 
     //
     // additional CURL opts
@@ -132,6 +137,16 @@ class Client
             $this->m_url = $_url;
         }
     }
+    public function verify_ssl($_verify = null)
+    {
+        if (is_null($_verify) == true)
+        {
+            return $this->m_verify_ssl;
+        } else
+        {
+            $this->m_verify_ssl = $_verify;
+        }
+    }
 
     //
     // here to support adding additional custom curl opts
@@ -154,12 +169,18 @@ class Client
     }
 
     //
-    // return the realtime or scheduled call-backs view
+    // return the realtime, pending or scheduled call-backs view
     //
     private function get_realtime()
     {
         return new API\Realtime($this);
     }
+
+    private function get_pending()
+    {
+        return new API\Pending($this);
+    }
+
     private function get_scheduled()
     {
         return new API\Scheduled($this);

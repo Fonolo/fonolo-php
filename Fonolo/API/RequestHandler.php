@@ -59,14 +59,20 @@ trait RequestHandler
             //
             $c = curl_init();
 
+            //
+            // custom request headers
+            //
+            $headers = array();
+
             if ($_type == 'POST')
             {
                 curl_setopt($c, CURLOPT_URL, $this->build_url($_action));
                 curl_setopt($c, CURLOPT_POST, true);
-                curl_setopt($c, CURLOPT_HTTPHEADER, array(
 
-                    'Content-type'  => 'application/x-www-form-urlencoded'
-                ));
+                //
+                // content type header for the form post
+                //
+                $headers['Content-Type'] = 'application/x-www-form-urlencoded';
 
                 //
                 // if there are args
@@ -84,6 +90,22 @@ trait RequestHandler
             curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 5);
             curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($c, CURLOPT_USERPWD, $this->m_client->account_sid() . ':' . $this->m_client->api_token());
+
+            //
+            // turn on/off peer SSL verification
+            //
+            if ($this->m_client->verify_ssl() == false)
+            {
+                curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
+            }
+
+            //
+            // if we have extra headers to add
+            //
+            if (count($headers) > 0)
+            {
+                curl_setopt($c, CURLOPT_HTTPHEADER, $headers);
+            }
 
             //
             // add additional custom CURL opts
@@ -126,13 +148,14 @@ trait RequestHandler
                 //
                 $opts = array('http' =>
                     array(
-                        'method'    => 'POST',
-                        'header'    => array(
+                        'method'        => 'POST',
+                        'verify_peer'   => $this->m_client->verify_ssl(),
+                        'header'        => array(
 
                             'Content-type: application/x-www-form-urlencoded',
                             'Authorization: Basic ' . base64_encode($this->m_client->account_sid() . ':' . $this->m_client->api_token())
                         ),
-                        'content'   => (is_null($_args) == true) ? '' : http_build_query($_args),
+                        'content'       => (is_null($_args) == true) ? '' : http_build_query($_args),
                     )
                 );
 
@@ -155,8 +178,9 @@ trait RequestHandler
                 //
                 $opts = array('http' =>
                     array(
-                        'method'    => 'GET',
-                        'header'    => array(
+                        'method'        => 'GET',
+                        'verify_peer'   => $this->m_client->verify_ssl(),
+                        'header'        => array(
 
                             'Authorization: Basic ' . base64_encode($this->m_client->account_sid() . ':' . $this->m_client->api_token())
                         )
