@@ -23,7 +23,7 @@ class Client
     //
     // PHP SDK version
     //
-    const VERSION = '1.0.2';
+    const VERSION = '1.0.3';
 
     //
     // the API key
@@ -166,6 +166,18 @@ class Client
     private function get_calls()
     {
         return new API\Calls($this);
+    }
+
+    //
+    // return optin details
+    //
+    private function get_optin(array $_args = null)
+    {
+        return new API\Optin($this, $_args);
+    }
+    private function get_optins()
+    {
+        return new API\Optins($this);
     }
 
     //
